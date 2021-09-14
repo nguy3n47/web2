@@ -1,0 +1,132 @@
+<h1 class="text-center">Quản Lý Sách</h1>
+<div class="d-grid mt-3 gap-2 d-md-flex justify-content-md-end">
+  <button
+    class="btn btn-primary newButton"
+    data-bs-toggle="modal"
+    data-bs-target="#modalNew"
+    type="button"
+  >
+    Thêm mới sách
+    <span style="padding: 0px 5px 0px 5px"><i class="fa fa-plus"></i></span>
+  </button>
+</div>
+
+<table class="table table-hover mt-3">
+  <thead>
+    <tr>
+      <th class="text-center" scope="col">STT</th>
+      <th scope="col">Mã ISBN</th>
+      <th scope="col">Tên</th>
+      <th scope="col">Ảnh</th>
+      <th class="text-center" scope="col">Thể loại</th>
+      <th class="text-center" scope="col">Nhà phân phối</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th class="text-center align-middle"></th>
+      <td class="align-middle"></td>
+      <td class="align-middle"></td>
+      <td class="align-middle"></td>
+      <td class="align-middle text-center"></td>
+      <td class="align-middle text-center"></td>
+    </tr>
+  </tbody>
+</table>
+
+<div class="modal fade" id="modalNew" tabindex="-1" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Thêm sách</h5>
+        <button
+          type="button"
+          class="btn-close"
+          aria-label="Close"
+        ></button>
+      </div>
+      <div class="modal-body">
+        <form method="post" id="my-form" action="/book" enctype="multipart/form-​data">
+          <div class="mb-3">
+            <label for="name" class="col-form-label">Tên:</label>
+            <input
+              type="text"
+              class="form-control"
+              id="name"
+              name="name"
+              required
+            />
+          </div>
+          <div class="mb-3">
+            <label for="new-name" class="col-form-label">Ảnh:</label>
+            <input
+              type="file"
+              class="form-control"
+              name="image"
+            />
+          </div>
+          <div class="mb-3">
+            <label for="new-description" class="col-form-label">Mã ISBN:</label>
+            <input
+              type="text"
+              required
+              class="form-control"
+              name="isbn"
+              id="isbn"
+            ></input>
+          </div>
+          <div class="mb-3">
+            <label for="new-fullDescription" class="col-form-label"
+              >Thể loại:</label
+            >
+            <select name="category" id="category" class="form-select" aria-label="Default select example">
+                <option value="1">Truyện tranh</option>
+                <option value="2">Sách giáo khoa</option>
+                <option value="3">Trinh thám</option>
+                <option value="4">Tiểu thuyết</option>
+            </select>
+          </div>
+          <div class="mb-3">
+            <label for="new-fullDescription" class="col-form-label"
+              >Nhà phân phối:</label
+            >
+            <input name="distributor" id="distributor" type="text" value="" class="form-control" data-role="tagsinput">
+          </div>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary">
+          Đóng
+        </button>
+        <button
+          type="submit"
+          class="btn btn-primary okButton"
+          form="my-form"
+        >
+          Đồng ý
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script>
+const $form = $('#my-form')
+
+$form.on('submit', submitHandler)
+
+function submitHandler (e) {
+  e.preventDefault();
+  var formData = new FormData();
+  formData.append('image', $('input[type=file]')[0].files[0]); 
+  $.ajax({
+    url: '/book',
+    type:'POST',
+    data: formData,
+    processData: false,
+    contentType: false
+  }).done(response => {
+    console.log(response)
+  })
+}
+</script>

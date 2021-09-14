@@ -1,0 +1,24 @@
+<table class="table table-hover">
+  <thead>
+    <tr>
+      <th class='text-center' scope="col">STT</th>
+      <th class='text-center' scope="col">Photo</th>
+      <th scope="col">Name</th>
+      <th scope="col">Phone</th>
+      <th scope="col">Email</th>
+      <th class='text-center' scope="col">Attend</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% customers.forEach(function(customer, index){ %>
+    <tr>
+      <th class='text-center align-middle'><%= index + 1 %></th>
+      <td class='text-center align-middle'><img src="/assets/images/<%- customer.avatar%>" style="object-fit: cover" height=80 width=80></img></td>
+      <td class="align-middle"><%= customer.displayName %></td>
+      <td class="align-middle"><%= customer.phone %></td>
+      <td class="align-middle"><%= customer.email %></td>
+      <td class="align-middle text-center"><%= customer.attend %></td>
+    </tr>
+    <% }); %>
+  </tbody>
+</table>

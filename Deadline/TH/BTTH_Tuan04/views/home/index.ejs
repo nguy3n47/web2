@@ -1,0 +1,16 @@
+<div class="list-group" style="margin-top: 15px">
+  <% if (conferences) { %> <% conferences.forEach(function(conference, index){
+  %>
+  <a href="#" class="list-group-item list-group-item-action">
+    <div>
+      <h5><%= conference.name %></h5>
+      <small class="text-muted"><%= conference.time %></small>
+    <p><%= conference.description %></p>
+    <div id="html-list-<%= index + 1 %>"/>
+      <script type="text/javascript">
+        document.querySelector("#html-list-<%- index + 1 %>").innerHTML = `<%- conference.fullDescription %>`;
+      </script>
+    </div>
+  </a>
+  <% }); %> <% } %>
+</div>

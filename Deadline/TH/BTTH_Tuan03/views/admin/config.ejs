@@ -1,0 +1,40 @@
+<% if (success) { %>
+<div class="alert alert-success mt-3" role="alert">Cập nhật thành công!</div>
+<% } %>
+
+<form class="mt-1" method="post">
+  <div class="mb-3">
+    <label for="welcome" class="form-label">Nội dung Home</label>
+    <input
+      type="text"
+      class="form-control"
+      id="welcome"
+      placeholder="Chào mừng bạn đến với công ty NYN"
+      name="welcome"
+      required
+    />
+  </div>
+  <div class="mb-3">
+    <label for="agree" class="form-label">Nội dung hồi đáp tham gia</label>
+    <input
+      type="text"
+      class="form-control"
+      id="agree"
+      placeholder="Cảm ơn bạn đã đồng ý tham dự"
+      name="agree"
+      required
+    />
+  </div>
+  <div class="mb-3">
+    <label for="not" class="form-label">Nội dung hồi đáp KHÔNG tham gia</label>
+    <input
+      type="text"
+      class="form-control"
+      id="not"
+      placeholder="Rất tiếc vì chưa có dịp phục vụ bạn"
+      name="not"
+      required
+    />
+  </div>
+  <button type="submit" class="btn btn-primary">Cập nhật</button>
+</form>

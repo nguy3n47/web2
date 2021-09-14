@@ -1,0 +1,14 @@
+<% if (user) { %>
+<div
+  class="alert alert-<%- user.attend === true ? 'success' : 'danger' %> mt-3"
+  role="alert"
+>
+  <h1 class="title margin-bottom-lg text-center"><%= user.email %></h1>
+  <h4 class="alert-heading">
+    <%- user.attend === true ? 'Thành công!' : 'Thất bại!' %>
+  </h4>
+  <p><%- user.attend === true ? agree : not %></p>
+  <hr />
+  <p class="mb-0">Trân trọng!</p>
+</div>
+<% } %>

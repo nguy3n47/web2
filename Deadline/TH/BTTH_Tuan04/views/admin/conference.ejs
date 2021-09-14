@@ -1,0 +1,274 @@
+<div class="d-grid mt-3 gap-2 d-md-flex justify-content-md-end">
+  <button
+    class="btn btn-primary newButton"
+    data-bs-toggle="modal"
+    data-bs-target="#modalNew"
+    type="button"
+  >
+    New
+    <span style="padding: 0px 5px 0px 5px"><i class="fa fa-plus"></i></span>
+  </button>
+</div>
+
+<table class="table table-hover mt-3">
+  <thead>
+    <tr>
+      <th class="text-center" scope="col">STT</th>
+      <th scope="col">Name</th>
+      <th scope="col">Description</th>
+      <th scope="col">Full Description</th>
+      <th class="text-center" scope="col">Created At</th>
+      <th class="text-center" scope="col">Status</th>
+      <th class="text-center" scope="col">Action</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% conferences.forEach(function(conference, index){ %>
+    <tr>
+      <th class="text-center align-middle"><%= index + 1 %></th>
+      <td class="align-middle"><%= conference.name %></td>
+      <td class="align-middle"><%= conference.description %></td>
+      <td class="align-middle">
+        <div id="html-item-<%= index + 1 %>"/>
+        <script type="text/javascript">
+          document.querySelector(
+            "#html-item-<%- index + 1 %>"
+          ).innerHTML = `<%- conference.fullDescription %>`;
+        </script>
+      </td>
+      <td class="align-middle text-center"><%= conference.createdAt %></td>
+      <td class="align-middle text-center"><%= conference.status %></td>
+      <td class="align-middle text-center">
+        <button
+          id="<%= conference.id %>"
+          type="button"
+          class="btn btn-secondary editButton"
+          style="width: 80px"
+          data-bs-toggle="modal"
+          data-bs-target="#modalEdit"
+        >
+          Edit
+        </button>
+
+        <button
+          id="<%= conference.id %>"
+          type="button"
+          class="btn btn-danger deleteButton"
+          style="width: 80px"
+        >
+          Delete
+        </button>
+      </td>
+    </tr>
+    <% }); %>
+  </tbody>
+</table>
+
+<div class="modal fade" id="modalEdit" tabindex="-1" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Edit Conference</h5>
+        <button
+          type="button"
+          class="btn-close"
+          data-bs-dismiss="modal"
+          aria-label="Close"
+        ></button>
+      </div>
+      <div class="modal-body">
+        <form>
+          <div class="mb-3">
+            <label for="name" class="col-form-label">Name:</label>
+            <input type="text" class="form-control name" id="name" />
+          </div>
+          <div class="mb-3">
+            <label for="description" class="col-form-label">Description:</label>
+            <textarea class="form-control" id="description"></textarea>
+          </div>
+          <div class="mb-3">
+            <label for="fullDescription" class="col-form-label"
+              >Full Description:</label
+            >
+            <textarea class="form-control" id="fullDescription"></textarea>
+          </div>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+          Close
+        </button>
+        <button
+          data-id=""
+          type="button"
+          class="btn btn-primary submitButton"
+          data-bs-dismiss="modal"
+        >
+          Submit
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="modal fade" id="modalNew" tabindex="-1" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">New Conference</h5>
+        <button
+          type="button"
+          class="btn-close"
+          data-bs-dismiss="modal"
+          aria-label="Close"
+        ></button>
+      </div>
+      <div class="modal-body">
+        <form id="my-form">
+          <div class="mb-3">
+            <label for="new-name" class="col-form-label">Name:</label>
+            <input
+              type="text"
+              class="form-control name"
+              id="new-name"
+              required
+            />
+          </div>
+          <div class="mb-3">
+            <label for="new-description" class="col-form-label"
+              >Description:</label
+            >
+            <textarea
+              required
+              class="form-control"
+              id="new-description"
+            ></textarea>
+          </div>
+          <div class="mb-3">
+            <label for="new-fullDescription" class="col-form-label"
+              >Full Description:</label
+            >
+            <textarea
+              required
+              class="form-control"
+              id="new-fullDescription"
+            ></textarea>
+          </div>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+          Close
+        </button>
+        <button
+          data-id=""
+          type="submit"
+          class="btn btn-primary okButton"
+          data-bs-dismiss="modal"
+          form="my-form"
+        >
+          OK
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script type="text/javascript">
+  $(".editButton").click(function (e) {
+    e.preventDefault();
+    let id = $(this).attr("id");
+    let url = window.location.href + "/" + id;
+    $.ajax({
+      type: "GET",
+      url: url,
+      data: {},
+      dataType: "json",
+    }).done(function (res) {
+      if (res.conference) {
+        const { id, name, description, fullDescription } = res.conference;
+        $(".submitButton").attr("data-id", id);
+        $("#name").val(name);
+        $("#description").val(description);
+        $("#fullDescription").val(fullDescription);
+      } else {
+        console.log("error");
+      }
+    });
+  });
+
+  $(".submitButton").click(function (e) {
+    e.preventDefault();
+    let id = $(this).attr("data-id");
+    let name = $("#name").val();
+    let description = $("#description").val();
+    let fullDescription = $("#fullDescription").val();
+    let url = window.location.href + "/" + id;
+    let data = {
+      name: name,
+      description: description,
+      fullDescription: fullDescription,
+    };
+
+    $.ajax({
+      type: "PUT",
+      url: url,
+      data: data,
+      dataType: "json",
+    }).done(function (res) {
+      if (res.success) {
+        window.location.reload();
+      } else {
+        console.log("error");
+      }
+    });
+  });
+
+  $(".okButton").click(function (e) {
+    e.preventDefault();
+    let name = $("#new-name").val();
+    let description = $("#new-description").val();
+    let fullDescription = $("#new-fullDescription").val();
+    let today = new Date().toLocaleDateString();
+    let url = window.location.href;
+    let data = {
+      name: name,
+      description: description,
+      fullDescription: fullDescription,
+      time: today,
+    };
+
+    console.log(data);
+
+    $.ajax({
+      type: "POST",
+      url: url,
+      data: data,
+      dataType: "json",
+    }).done(function (res) {
+      if (res.success) {
+        window.location.reload();
+      } else {
+        console.log("error");
+      }
+    });
+  });
+
+  $(".deleteButton").click(function (e) {
+    e.preventDefault();
+    let id = $(this).attr("id");
+    let url = window.location.href + "/" + id;
+    $.ajax({
+      type: "DELETE",
+      url: url,
+      data: {},
+      dataType: "json",
+    }).done(function (res) {
+      if (res.success) {
+        window.location.reload();
+      } else {
+        console.log("error");
+      }
+    });
+  });
+</script>

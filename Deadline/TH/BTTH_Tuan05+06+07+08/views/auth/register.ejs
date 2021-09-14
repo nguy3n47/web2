@@ -1,0 +1,170 @@
+<style>
+  /* set form background colour*/
+  form {
+    background: #fff;
+  }
+  /* set padding and size of th form */
+  .form-container {
+    border-radius: 10px;
+    padding: 30px;
+  }
+</style>
+
+<section class="container-fluid">
+  <!-- row and justify-content-center class is used to place the form in center -->
+  <section class="row justify-content-center">
+    <section class="col-12 col-sm-6 col-md-4">
+      <form class="form-container" method="post" enctype="multipart/form-data">
+        <div class="form-group">
+          <h4 class="text-center font-weight-bold">Register</h4>
+          <label for="name" class="form-label">Name</label>
+          <input
+            type="text"
+            class="form-control"
+            id="name"
+            name="name"
+            required
+          />
+        </div>
+        <div class="form-group" style="margin-top: 5px">
+          <label for="phone" class="form-label">Phone</label>
+          <input
+            type="text"
+            required
+            maxlength="10"
+            class="form-control"
+            id="phone"
+            name="phone"
+            onkeypress="validate(event)"
+          />
+        </div>
+        <div class="form-group" style="margin-top: 5px">
+          <label for="email" class="form-label">Email</label>
+          <input
+            type="email"
+            class="form-control"
+            id="email"
+            name="email"
+            required
+            aria-describedby="emailHelp"
+          />
+          <div id="emailHelp" class="form-text">
+            We'll never share your email with anyone else.
+          </div>
+        </div>
+        <div class="form-group" style="margin-top: 5px">
+          <label for="conferenceId" class="form-label">Conference</label>
+          <select
+            class="form-select"
+            id="conferenceId"
+            name="conferenceId"
+            required
+          >
+            <% conferences.forEach(function(conference, index){ %>
+            <option value="<%= conference.id %>"><%= conference.name %></option>
+            <% }); %>
+          </select>
+        </div>
+        <div class="form-group" style="margin-top: 5px">
+          <input
+            class="form-check-input"
+            type="checkbox"
+            name="checkedAttend"
+            id="checkedAttend"
+          />
+          <label class="form-check-label" for="checkedAttend">
+            Will you attend?
+          </label>
+        </div>
+        <div class="form-group" style="margin-top: 5px">
+          <input
+            class="form-check-input checkedCreateAccount"
+            type="checkbox"
+            name="checkedCreateAccount"
+            id="checkedCreateAccount"
+          />
+          <label class="form-check-label" for="checkedCreateAccount">
+            Do you want to create an account?
+          </label>
+        </div>
+        <fieldset class="newAccount" style="display: none; margin-top: 20px">
+          <div class="form-group text-center">
+            <img
+              width="240px"
+              height="240px"
+              style="object-fit: cover"
+              id="profileImg"
+              src="/assets/images/profile.jpg"
+              class="img-sm rounded-circle border"
+            />
+            <label for="file-input">
+              <i style="font-size: 28px; color: gray" class="fas fa-camera"></i>
+            </label>
+            <input
+              id="file-input"
+              name="avatar"
+              style="display: none"
+              type="file"
+            />
+          </div>
+          <div class="form-group">
+            <label for="password" class="form-label">Password</label>
+            <input
+              type="password"
+              class="form-control"
+              id="password"
+              name="password"
+            />
+          </div>
+          <div class="form-group">
+            <label for="confirmPassword" class="form-label"
+              >Confirm Password</label
+            >
+            <input
+              type="password"
+              class="form-control"
+              id="confirmPassword"
+              name="confirmPassword"
+            />
+          </div>
+        </fieldset>
+        <div class="form-group">
+          <button
+            type="submit"
+            style="margin-top: 10px"
+            class="btn btn-primary form-control"
+          >
+            Submit
+          </button>
+        </div>
+      </form>
+    </section>
+  </section>
+</section>
+<script type="text/javascript">
+  $(function () {
+    $("#checkedCreateAccount").on("click", function () {
+      $(".newAccount").toggle(this.checked);
+      if ($("#checkedCreateAccount").is(":checked")) {
+        $("#password").prop("required", true);
+        $("#confirmPassword").prop("required", true);
+      } else {
+        $("#password").prop("required", false);
+        $("#confirmPassword").prop("required", false);
+      }
+    });
+  });
+
+  $("#file-input").change(function () {
+    readURL(this, "profileImg");
+  });
+  function readURL(input, id) {
+    if (input.files && input.files[0]) {
+      var reader = new FileReader();
+      reader.onload = function (e) {
+        $("#" + id).attr("src", e.target.result);
+      };
+      reader.readAsDataURL(input.files[0]);
+    }
+  }
+</script>

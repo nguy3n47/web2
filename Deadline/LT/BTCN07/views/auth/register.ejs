@@ -1,0 +1,129 @@
+<style>
+  /* set form background colour*/
+  form {
+    background: #fff;
+  }
+  /* set padding and size of th form */
+  .form-container {
+    border-radius: 10px;
+    padding: 30px;
+  }
+</style>
+
+<section class="container-fluid">
+  <!-- row and justify-content-center class is used to place the form in center -->
+  <section class="row justify-content-center">
+    <section class="col-12 col-sm-6 col-md-4">
+      <form class="form-container" method="post" enctype="multipart/form-data">
+        <h4 class="text-center font-weight-bold">Register</h4>
+        <div class="form-group text-center">
+          <img
+            width="180px"
+            height="180px"
+            style="object-fit: cover"
+            id="profileImg"
+            src="/assets/images/profile.jpg"
+            class="img-sm rounded-circle border"
+          />
+          <label for="file-input">
+            <i
+              style="
+                font-size: 28px;
+                position: absolute;
+                top: 44%;
+                left: 50%;
+                transform: translate(-50%, -50%);
+                color: gray;
+              "
+              class="fas fa-camera"
+            ></i>
+          </label>
+          <input
+            id="file-input"
+            name="avatar"
+            style="display: none"
+            type="file"
+          />
+        </div>
+        <div class="form-group" style="margin-top: 15px">
+          <label for="name" class="form-label">Name</label>
+          <input
+            type="text"
+            class="form-control"
+            id="name"
+            name="name"
+            required
+          />
+        </div>
+        <div class="form-group" style="margin-top: 5px">
+          <label for="phone" class="form-label">Phone</label>
+          <input
+            type="text"
+            required
+            maxlength="10"
+            class="form-control"
+            id="phone"
+            name="phone"
+            onkeypress="validate(event)"
+          />
+        </div>
+        <div class="form-group" style="margin-top: 5px">
+          <label for="email" class="form-label">Email</label>
+          <input
+            type="email"
+            class="form-control"
+            id="email"
+            name="email"
+            required
+            aria-describedby="emailHelp"
+          />
+        </div>
+        <fieldset class="newAccount" style="margin-top: 20px">
+          <div class="form-group">
+            <label for="password" class="form-label">Password</label>
+            <input
+              type="password"
+              class="form-control"
+              id="password"
+              name="password"
+            />
+          </div>
+          <div class="form-group">
+            <label for="confirmPassword" class="form-label"
+              >Confirm Password</label
+            >
+            <input
+              type="password"
+              class="form-control"
+              id="confirmPassword"
+              name="confirmPassword"
+            />
+          </div>
+        </fieldset>
+        <div class="form-group">
+          <button
+            type="submit"
+            style="margin-top: 10px"
+            class="btn btn-primary form-control"
+          >
+            Submit
+          </button>
+        </div>
+      </form>
+    </section>
+  </section>
+</section>
+<script type="text/javascript">
+  $("#file-input").change(function () {
+    readURL(this, "profileImg");
+  });
+  function readURL(input, id) {
+    if (input.files && input.files[0]) {
+      var reader = new FileReader();
+      reader.onload = function (e) {
+        $("#" + id).attr("src", e.target.result);
+      };
+      reader.readAsDataURL(input.files[0]);
+    }
+  }
+</script>

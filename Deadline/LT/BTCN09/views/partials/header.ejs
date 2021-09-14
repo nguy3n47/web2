@@ -1,0 +1,87 @@
+<header
+  class="
+    d-flex
+    flex-wrap
+    align-items-center
+    justify-content-center justify-content-md-between
+    py-3
+    mb-4
+    border-bottom
+  "
+>
+  <a
+    href="/"
+    class="
+      d-flex
+      align-items-center
+      col-md-3
+      mb-2 mb-md-0
+      text-dark text-decoration-none
+    "
+  >
+    <svg
+      class="bi me-2"
+      width="40"
+      height="32"
+      role="img"
+      aria-label="Bootstrap"
+    >
+      <use xlink:href="#grid"></use>
+    </svg>
+  </a>
+
+  <ul class="nav col-12 col-md-auto mb-2 justify-content-center mb-md-0">
+    <li>
+      <a href="/" class="nav-link px-2">
+        <svg
+          class="bi me-2"
+          width="40"
+          height="32"
+          role="img"
+          aria-label="Bootstrap"
+        >
+          <use xlink:href="#home"></use>
+        </svg>
+      </a>
+    </li>
+  </ul>
+
+  <div class="col-md-3 text-end">
+    <% if (user) { %>
+    <form method="post" action="/auth/logout">
+      <button
+        id="btn-user"
+        type="button"
+        class="btn btn-outline-primary me-2 dropdown-toggle"
+        data-bs-toggle="dropdown"
+      >
+        <%= user.displayName %>
+      </button>
+      <ul class="dropdown-menu" aria-labelledby="btn-user">
+        <li>
+          <a class="dropdown-item" href="/user/profile">Thông tin tài khoản</a>
+        </li>
+        <li>
+          <a class="dropdown-item" href="/user/changepassword">Đổi mật khẩu</a>
+        </li>
+      </ul>
+      <button type="submit" class="btn btn-secondary">Đăng xuất</button>
+    </form>
+    <% } else { %>
+    <button
+      type="button"
+      onclick="location.href='/auth/login'"
+      class="btn btn-outline-primary me-2"
+    >
+      Đăng nhập
+    </button>
+    <button
+      type="button"
+      onclick="location.href='/auth/register'"
+      class="btn btn-primary"
+    >
+      Đăng ký
+    </button>
+    <% } %>
+  </div>
+</header>

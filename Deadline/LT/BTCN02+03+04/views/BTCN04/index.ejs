@@ -1,0 +1,90 @@
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+  <div class="container-fluid">
+    <a class="navbar-brand" href="#">Todo App</a>
+    <button
+      class="navbar-toggler"
+      type="button"
+      data-bs-toggle="collapse"
+      data-bs-target="#navbarNavAltMarkup"
+      aria-controls="navbarNavAltMarkup"
+      aria-expanded="false"
+      aria-label="Toggle navigation"
+    >
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+      <div class="navbar-nav">
+        <a class="nav-link active" aria-current="page" href="/">Home</a>
+        <% if (currentUser) { %>
+        <a class="nav-link" href="/auth/logout">Logout</a>
+        <% } else{%>
+        <a class="nav-link" href="/auth/login">Login</a>
+        <%} %>
+        <a class="nav-link disabled" href="#" tabindex="-1" aria-disabled="true"
+          ><%- currentUser ? currentUser.displayName : 'Guest' %></a
+        >
+      </div>
+    </div>
+  </div>
+</nav>
+<% if (currentUser) { %>
+<form method="post">
+  <div class="row justify-content-md-center mt-3">
+    <div class="col-md-auto w-50">
+      <input
+        type="text"
+        class="form-control"
+        id="newtodo"
+        name="newtodo"
+        required
+        placeholder="Create new todo"
+      />
+    </div>
+    <div class="col-md-auto">
+      <button type="submit" class="btn btn-primary">
+        <i class="fa fa-plus"></i>
+      </button>
+    </div>
+  </div>
+</form>
+<% if (todos) { %> <% todos.forEach(function(todo){ %>
+<div class="row">
+  <form class="col-11 mt-3">
+    <div>
+      <div class="list-group">
+        <label class="list-group-item">
+          <input id=<%= todo.id %> class="form-check-input me-1 check_click" type="checkbox" value="" <%-
+          todo.completed === true ? 'checked' : '' %> /> <% if (todo.completed ===
+          true) { %>
+          <del><%= todo.description %></del>
+          <% } else{ %> <%- todo.description %> <%} %>
+        </label>
+      </div>
+    </div>
+  </form>
+  <form class="col mt-3">
+    <div>
+      <button type="button" type="submit" class="btn btn-labeled btn-danger del_btn" id=<%= todo.id %>>
+        <i class="fa fa-trash"></i>
+      </button>
+    </div>
+  </form>
+</div>
+<% }); %> <% } %> <% } %>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script type="text/javascript">
+  $('.del_btn').click(function(e) {
+    //e.preventDefault();
+    var id = $(this).attr('id');
+    // $.ajax({
+    //         type: 'delete',
+    //         url: '/BTCN04',
+    //         data: {todoId: id},
+    //         dataType:'json',
+    //     })
+  });
+
+  $('.check_click').click(function() {
+    console.log($(this).attr('id'));
+  });
+</script>

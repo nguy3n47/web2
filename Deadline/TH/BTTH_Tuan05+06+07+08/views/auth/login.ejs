@@ -1,0 +1,91 @@
+<style>
+  /* set form background colour*/
+  form {
+    background: #fff;
+  }
+  /* set padding and size of th form */
+  .form-container {
+    border-radius: 10px;
+    padding: 30px;
+  }
+</style>
+
+<section class="container-fluid">
+  <!-- row and justify-content-center class is used to place the form in center -->
+  <section class="row justify-content-center">
+    <section class="col-12 col-sm-6 col-md-4">
+      <form class="form-container" method="post" autocomplete="on">
+        <div class="form-group">
+          <h4 class="text-center font-weight-bold">Sign In</h4>
+          <label for="username">Email or username</label>
+          <input
+            type="username"
+            class="form-control"
+            id="username"
+            autocomplete="username"
+            name="username"
+            aria-describeby="emailHelp"
+            placeholder="Email or username"
+          />
+        </div>
+        <div class="form-group" style="margin-top: 5px">
+          <label for="password">Password</label>
+          <input
+            type="password"
+            class="form-control"
+            id="password"
+            name="password"
+            autocomplete="current-password"
+            placeholder="Password"
+          />
+        </div>
+        <div class="form-group" style="margin-top: 5px">
+          <input
+            class="form-check-input"
+            type="checkbox"
+            value="remember-me"
+            id="remember_me"
+          />
+          <label class="form-check-label" for="remember-me">
+            Remember password
+          </label>
+        </div>
+        <div class="form-group">
+          <button
+            type="submit"
+            style="margin-top: 10px"
+            class="btn btn-primary form-control"
+          >
+            SIGN IN
+          </button>
+        </div>
+      </form>
+    </section>
+  </section>
+</section>
+<script>
+  $(function () {
+    if (localStorage.chkbx && localStorage.chkbx != "") {
+      $("#remember_me").attr("checked", "checked");
+      $("#username").val(localStorage.usrname);
+      $("#password").val(localStorage.pass);
+    } else {
+      $("#remember_me").removeAttr("checked");
+      $("#username").val("");
+      $("#password").val("");
+    }
+
+    $("#remember_me").click(function () {
+      if ($("#remember_me").is(":checked")) {
+        // save username and password
+        localStorage.usrname = $("#username").val();
+        localStorage.pass = $("#password").val();
+        localStorage.chkbx = $("#remember_me").val();
+      } else {
+        localStorage.usrname = "";
+        localStorage.pass = "";
+        localStorage.chkbx = "";
+      }
+    });
+  });
+</script>

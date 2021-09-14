@@ -1,0 +1,100 @@
+<div class="d-grid mt-3 gap-2 d-md-flex justify-content-md-end">
+  <button
+    class="btn btn-primary subscribeButton"
+    data-bs-toggle="modal"
+    data-bs-target="#modalSubscribe"
+    type="button"
+  >
+    Subscribe
+    <span style="padding: 0px 5px 0px 5px"><i class="fa fa-plus"></i></span>
+  </button>
+</div>
+
+<table class="table table-hover">
+  <thead>
+    <tr>
+      <th class="text-center" scope="col">STT</th>
+      <th scope="col">Name</th>
+      <th scope="col">Description</th>
+      <th class="text-center" scope="col">Status</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% joinedConferences.forEach(function(conference, index){ %>
+    <tr>
+      <th class="text-center align-middle"><%= index + 1 %></th>
+      <td class="align-middle"><%= conference.name %></td>
+      <td class="align-middle"><%= conference.description %></td>
+      <td class="align-middle text-center">Success</td>
+    </tr>
+    <% }); %>
+  </tbody>
+</table>
+
+<div class="modal fade" id="modalSubscribe" tabindex="-1" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Subscribe Conference</h5>
+        <button
+          type="button"
+          class="btn-close"
+          data-bs-dismiss="modal"
+          aria-label="Close"
+        ></button>
+      </div>
+      <div class="modal-body">
+        <form>
+          <div class="mb-3">
+            <label class="col-form-label">Name:</label>
+            <select
+              class="form-select"
+              id="conferenceId"
+              name="conferenceId"
+              required
+            >
+              <% conferences.forEach(function(conference, index){ %>
+              <option value="<%= conference.id %>">
+                <%= conference.name %>
+              </option>
+              <% }); %>
+            </select>
+          </div>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+          Close
+        </button>
+        <button
+          data-id=""
+          type="submit"
+          class="btn btn-primary okButton"
+          data-bs-dismiss="modal"
+        >
+          OK
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script type="text/javascript">
+  $(".okButton").click(function (e) {
+    e.preventDefault();
+    let id = $("#conferenceId :selected").val();
+    let url = window.location.href + "/" + id;
+    $.ajax({
+      type: "POST",
+      url: url,
+      data: {},
+      dataType: "json",
+    }).done(function (res) {
+      if (res.success) {
+        window.location.reload();
+      } else {
+        console.log("error");
+      }
+    });
+  });
+</script>

@@ -1,0 +1,79 @@
+<section class="container-fluid">
+  <section class="row justify-content-center">
+    <section class="col-12 col-sm-6 col-md-4">
+      <form class="form-container" method="post" autocomplete="on">
+        <div class="form-group">
+          <label for="name" class="form-label">Họ và tên</label>
+          <input
+            type="text"
+            class="form-control"
+            id="name"
+            name="name"
+            placeholder="Nhập họ và tên"
+            required
+          />
+        </div>
+        <div class="form-group" style="margin-top: 15px">
+          <label for="email">Email</label>
+          <input
+            type="email"
+            class="form-control"
+            id="email"
+            autocomplete="email"
+            name="email"
+            aria-describeby="emailHelp"
+            placeholder="Nhập email"
+            required
+          />
+        </div>
+        <div class="form-group" style="margin-top: 15px">
+          <label for="phone" class="form-label">Số điện thoại</label>
+          <input
+            type="text"
+            required
+            maxlength="10"
+            class="form-control"
+            id="phone"
+            name="phone"
+            placeholder="Nhập số điện thoại"
+          />
+        </div>
+        <div class="form-group" style="margin-top: 15px">
+          <label for="password">Mật khẩu</label>
+          <input
+            type="password"
+            class="form-control"
+            id="password"
+            name="password"
+            autocomplete="password"
+            placeholder="Nhập mật khẩu"
+            required
+          />
+        </div>
+        <div class="form-group" style="margin-top: 15px">
+          <label for="confirmPassword" class="form-label"
+            >Xác nhận mật khẩu</label
+          >
+          <input
+            type="password"
+            class="form-control"
+            id="confirmPassword"
+            autocomplete="confirmPassword"
+            name="confirmPassword"
+            placeholder="Nhập lại mật khẩu"
+            required
+          />
+        </div>
+        <div class="form-group">
+          <button
+            type="submit"
+            style="margin-top: 20px"
+            class="btn btn-primary form-control"
+          >
+            Đăng ký
+          </button>
+        </div>
+      </form>
+    </section>
+  </section>
+</section>
